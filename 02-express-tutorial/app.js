@@ -1,26 +1,28 @@
-const http = require('http');
+const express = require("express");
+const app = express();
+const {products} = require("./data");
 
 
-const server = http.createServer((req, res) => {
+// setup static and middleware
 
-    let url = req.url;
+const logger = (res,req,next) => {
+    Console.log("middleware");
+    next()
+}
 
-    if (url === "/") {
+app.use(logger)
 
-        res.writeHead(200, { "content-type": "text/html" })
-        res.write("<h1>HOME PAGE</h1>");
-        res.end();
-    }
-    else if (url === "/about") {
-        res.writeHead(200, { "content-type": "text/html" })
-        res.write("<h1>About</h1>");
-        res.end();
-    }
-    else {
-        res.writeHead(404,{"content-type" : "text/html"})
-        res.write("<h1>Page not found</h1>")
-        res.end();
-    }
+app.get("/",(req,res) => {
+    
+    res.json(products)
+})
+app.get("/api/products/:productID",(req,res) => {
+
+    let detailPage = products.find(element => element.id === Number(req.params.productID))
+    res.json(detailPage);
+    res.end()
 })
 
-server.listen(5000);
+app.listen(5000, ()=> {
+    console.log("server listening to port 5000");
+})
