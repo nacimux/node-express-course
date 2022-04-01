@@ -14,8 +14,8 @@ require("express-async-errors");
 // Middleware
 app.use(express.json());
 
-//Routes
-
+    //Routes
+        
 app.get('/', (req, res) => {
     res.send('<h1>Store Api</h1><a href="/api/v1/products">Products</a>');
 });
@@ -39,4 +39,5 @@ const start = async () => {
 }
 
 start();
+
 

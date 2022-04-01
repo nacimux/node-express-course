@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getAllProducts, getAllProductStatic } = require('../controllers/products');
+const { getAllProducts, getProduct  } = require('../controllers/products');
 
 router.route('/').get(getAllProducts);
-router.route('/static').get(getAllProductStatic);
+router.route('/:productId').get(getProduct);
 
 
 module.exports = router;
